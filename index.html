@@ -202,10 +202,10 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   border-radius: 50%; opacity: 0.3; animation: float-up linear infinite;
 }
 @keyframes float-up {
-  0% { transform: translateY(100%) scale(0); opacity: 0; }
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
   10% { opacity: 0.3; }
   90% { opacity: 0.3; }
-  100% { transform: translateY(-10%) scale(1); opacity: 0; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
 }
 
 /* PROBLEM */
@@ -1268,6 +1268,10 @@ footer a { color: var(--text-secondary); }
   });
   navLinks.querySelectorAll('a').forEach(function(link) {
     link.addEventListener('click', function() { closeNav(); });
+  });
+  var mobileQuery = window.matchMedia('(max-width: 600px)');
+  mobileQuery.addEventListener('change', function(e) {
+    if (!e.matches) closeNav();
   });
 
   // Scroll animations
