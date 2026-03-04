@@ -6,7 +6,7 @@ Algorithmic feeds are sophisticated prompt injection attacks on your brain. They
 
 You wouldn't browse the internet without a firewall. You shouldn't browse content without one either.
 
-**This is not an app.** It's an open-source guide to cognitive security — understanding how algorithmic manipulation works, why empathetic people are the most vulnerable, and what to do about it. It comes with a live website, practical tools, and an AI skill you can use to audit your own digital habits.
+**This is a browser extension and open-source guide to cognitive security.** The TuneOut extension intercepts algorithmic feeds on Twitter, Reddit, and YouTube, replacing them with clean RSS briefings and optional AI-generated summaries. Same trigger, better reward. It also comes with a live website and an AI skill to audit your digital habits.
 
 ### Why this works
 
@@ -43,7 +43,29 @@ This guide is hosted at **[difflabai.github.io/tuneout](https://difflabai.github
 
 ---
 
-## Installation
+## Install the Extension
+
+### Chrome
+
+1. Clone this repo or download the `extension/` folder
+2. Open `chrome://extensions/` in Chrome
+3. Enable **Developer mode** (top right)
+4. Click **Load unpacked** and select the `extension/` folder
+5. Visit Twitter, Reddit, or YouTube — TuneOut replaces the feed automatically
+
+### Firefox
+
+1. Open `about:debugging#/runtime/this-firefox`
+2. Click **Load Temporary Add-on**
+3. Select `extension/manifest.json`
+
+### Optional: AI Briefings
+
+Click the TuneOut icon in your toolbar to open settings. Paste an Anthropic or OpenAI API key to get AI-generated briefing summaries instead of raw headlines.
+
+---
+
+## Other Ways to Use TuneOut
 
 ### Use the Website
 
@@ -112,6 +134,7 @@ Yes. The prompt examples in the guide work with any major LLM. The `.skill` file
 | File | What It Is |
 |------|-----------|
 | `README.md` | This guide (you're reading it) |
+| [`extension/`](extension/) | Browser extension — the core product |
 | [`index.html`](index.html) | The full interactive site — served by GitHub Pages |
 | [`tuneout.skill`](tuneout.skill) | Claude skill for personal digital attention auditing |
 

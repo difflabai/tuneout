@@ -1,0 +1,352 @@
+/* TuneOut — Feed Replacement Overlay */
+
+#tuneout-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483647;
+  background: #0a0a1a;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+.tuneout-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.tuneout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.tuneout-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tuneout-wordmark {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #00d4aa;
+}
+
+.tuneout-date {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Greeting */
+.tuneout-greeting h1 {
+  font-size: 36px;
+  font-weight: 300;
+  color: #fff;
+  margin: 0 0 12px;
+}
+
+.tuneout-intercept-msg {
+  font-size: 16px;
+  color: #999;
+  margin: 0 0 32px;
+}
+
+.tuneout-intercept-msg strong {
+  color: #e0e0e0;
+}
+
+/* Intent */
+.tuneout-intent {
+  margin-bottom: 40px;
+  padding: 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+}
+
+.tuneout-intent label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 12px;
+}
+
+.tuneout-intent input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.tuneout-intent input:focus {
+  border-color: #00d4aa;
+}
+
+.tuneout-intent input::placeholder {
+  color: #555;
+}
+
+.tuneout-intent-hint {
+  font-size: 13px;
+  color: #555;
+  margin: 8px 0 0;
+}
+
+.tuneout-intent-confirm {
+  text-align: center;
+}
+
+.tuneout-intent-confirm p {
+  margin: 0 0 12px;
+  color: #999;
+}
+
+.tuneout-intent-confirm strong {
+  color: #00d4aa;
+}
+
+.tuneout-intent-go {
+  padding: 10px 24px;
+  background: #00d4aa;
+  color: #0a0a1a;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tuneout-intent-go:hover {
+  background: #00e8bb;
+}
+
+/* Briefing */
+.tuneout-briefing {
+  margin-bottom: 32px;
+  flex: 1;
+}
+
+.tuneout-briefing h2 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #00d4aa;
+  margin: 0 0 20px;
+}
+
+/* Loading */
+.tuneout-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #666;
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+.tuneout-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0,212,170,0.2);
+  border-top-color: #00d4aa;
+  border-radius: 50%;
+  animation: tuneout-spin 0.8s linear infinite;
+}
+
+@keyframes tuneout-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Summary */
+.tuneout-summary {
+  margin-bottom: 24px;
+}
+
+.tuneout-summary p {
+  font-size: 15px;
+  color: #bbb;
+  margin: 0 0 12px;
+  line-height: 1.7;
+}
+
+.tuneout-no-summary {
+  font-size: 13px;
+  color: #555;
+  font-style: italic;
+}
+
+.tuneout-error {
+  color: #ff6b6b;
+  font-size: 14px;
+}
+
+/* Items */
+.tuneout-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tuneout-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s;
+  border: 1px solid transparent;
+}
+
+.tuneout-item:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(0,212,170,0.15);
+}
+
+.tuneout-item-source {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #00d4aa;
+  opacity: 0.7;
+}
+
+.tuneout-item-title {
+  font-size: 15px;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.tuneout-item-desc {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.5;
+}
+
+.tuneout-no-items {
+  font-size: 14px;
+  color: #555;
+  padding: 20px 0;
+}
+
+/* Why section */
+.tuneout-why {
+  margin-bottom: 40px;
+}
+
+.tuneout-why details {
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tuneout-why summary {
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #888;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.tuneout-why summary:hover {
+  color: #aaa;
+}
+
+.tuneout-why-content {
+  padding: 0 20px 20px;
+}
+
+.tuneout-why-content p {
+  font-size: 14px;
+  color: #777;
+  margin: 0 0 12px;
+  line-height: 1.6;
+}
+
+.tuneout-why-content p:last-child {
+  margin-bottom: 0;
+}
+
+.tuneout-why-content strong {
+  color: #bbb;
+}
+
+/* Footer */
+.tuneout-footer {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.tuneout-proceed-btn {
+  padding: 10px 24px;
+  background: transparent;
+  color: #555;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.tuneout-proceed-btn:hover {
+  color: #999;
+  border-color: rgba(255,255,255,0.2);
+}
+
+.tuneout-proceed-note {
+  font-size: 12px;
+  color: #444;
+  margin: 12px 0 0;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .tuneout-container {
+    padding: 24px 16px 60px;
+  }
+
+  .tuneout-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .tuneout-greeting h1 {
+    font-size: 28px;
+  }
+
+  .tuneout-intent {
+    padding: 16px;
+  }
+}

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 340px;
+      background: #0a0a1a;
+      color: #e0e0e0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .header svg { flex-shrink: 0; }
+
+    .header h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #00d4aa;
+    }
+
+    .header .version {
+      font-size: 11px;
+      color: #555;
+      margin-left: auto;
+    }
+
+    .section {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #00d4aa;
+      margin-bottom: 10px;
+    }
+
+    /* Site toggles */
+    .site-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+    }
+
+    .site-toggle label {
+      font-size: 13px;
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #333;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 2px;
+      top: 2px;
+      background: #666;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    .toggle input:checked + .toggle-slider {
+      background: rgba(0,212,170,0.3);
+    }
+
+    .toggle input:checked + .toggle-slider::before {
+      transform: translateX(16px);
+      background: #00d4aa;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      gap: 12px;
+    }
+
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #00d4aa;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* API Key */
+    .api-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .provider-select, .api-input {
+      width: 100%;
+      padding: 8px 10px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .provider-select {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .api-input:focus, .provider-select:focus {
+      border-color: #00d4aa;
+    }
+
+    .api-input::placeholder {
+      color: #444;
+    }
+
+    .api-status {
+      font-size: 11px;
+      color: #555;
+    }
+
+    .api-status.connected {
+      color: #00d4aa;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 12px 16px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #555;
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: #00d4aa;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+      <rect width="32" height="32" rx="8" fill="#1a1a2e"/>
+      <path d="M8 12h16M8 16h12M8 20h14" stroke="#00d4aa" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="24" cy="10" r="4" fill="#00d4aa" opacity="0.3"/>
+    </svg>
+    <h1>TuneOut</h1>
+    <span class="version">v1.0</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Protected Sites</div>
+    <div class="site-toggle">
+      <label for="toggle-twitter">Twitter / X</label>
+      <div class="toggle">
+        <input type="checkbox" id="toggle-twitter" data-site="twitter" checked>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+    <div class="site-toggle">
+      <label for="toggle-reddit">Reddit</label>
+      <div class="toggle">
+        <input type="checkbox" id="toggle-reddit" data-site="reddit" checked>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+    <div class="site-toggle">
+      <label for="toggle-youtube">YouTube</label>
+      <div class="toggle">
+        <input type="checkbox" id="toggle-youtube" data-site="youtube" checked>
+        <span class="toggle-slider"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Feeds Intercepted</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="stat-twitter">0</div>
+        <div class="stat-label">Twitter</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="stat-reddit">0</div>
+        <div class="stat-label">Reddit</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="stat-youtube">0</div>
+        <div class="stat-label">YouTube</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">AI Briefing (Optional)</div>
+    <div class="api-section">
+      <select class="provider-select" id="llm-provider">
+        <option value="anthropic">Anthropic (Claude)</option>
+        <option value="openai">OpenAI (GPT)</option>
+      </select>
+      <input type="password" class="api-input" id="llm-api-key"
+             placeholder="Paste API key for AI-generated summaries">
+      <div class="api-status" id="api-status">No API key set. Headlines shown without summarization.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://difflabai.github.io/tuneout" target="_blank">Your brain is not a firewall</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
