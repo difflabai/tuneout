@@ -119,6 +119,6 @@ Yes. The prompt examples in the guide work with any major LLM. The `.skill` file
 
 ## Credits
 
-Built by [Martyn Garcia](https://www.linkedin.com/in/martyngarcia/) at [DiffLab.AI](https://difflab.ai) — we help organizations build AI systems that actually work. If you're thinking about AI transformation for your team, [let's talk](https://difflab.ai).
+Built by [Mikkel Garcia](https://difflab.ai) at [DiffLab.AI](https://difflab.ai).
 
 If you find this useful, share it with someone who spends more than 2 hours a day on algorithmic feeds. They probably don't realize what it's costing them.
