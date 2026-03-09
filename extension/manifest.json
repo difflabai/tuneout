@@ -13,7 +13,9 @@
     "https://feeds.npr.org/*",
     "https://www.reddit.com/.rss*",
     "https://rss.nytimes.com/*",
-    "https://feeds.arstechnica.com/*"
+    "https://feeds.arstechnica.com/*",
+    "https://api.anthropic.com/*",
+    "https://api.openai.com/*"
   ],
   "background": {
     "service_worker": "background.js"

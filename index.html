@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>TuneOut - Your Brain Is Not A Firewall</title>
-<meta name="description" content="Cognitive security for the algorithmic age. Learn why empathetic people must tune out algorithmic feeds and use AI filters to protect their attention.">
-<meta name="theme-color" content="#0a0a1a">
-<meta property="og:title" content="TuneOut - Your Brain Is Not A Firewall">
-<meta property="og:description" content="Algorithmic feeds are sophisticated prompt injection attacks on your brain. Learn to defend yourself.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuneOut — Same Habit. Better Feed.</title>
+<meta name="description" content="Replace infinite scroll with a 3-minute AI briefing from sources you chose. Free browser extension. No accounts, no tracking.">
+<meta name="theme-color" content="#0c0c1e">
+<meta property="og:title" content="TuneOut — Same Habit. Better Feed.">
+<meta property="og:description" content="Your feed knows you, but it doesn't work for you. TuneOut replaces social media feeds with curated LLM briefings. Free and open source.">
 <meta property="og:type" content="website">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html.nav-open { overflow: hidden; }
 
 :root {
   --bg-primary: #0a0a1a;
@@ -28,7 +27,7 @@ html.nav-open { overflow: hidden; }
   --accent-yellow: #ffbb33;
   --gradient-danger: linear-gradient(135deg, #ff4455, #ff8833);
   --gradient-safe: linear-gradient(135deg, #4488ff, #44dd88);
-  --gradient-hero: linear-gradient(135deg, #1a1a3a 0%, #0a0a2a 50%, #0d1a2d 100%);
+  --gradient-hero: linear-gradient(135deg, #0c0c1e 0%, #0a0a2a 50%, #0d1a2d 100%);
   --radius: 12px;
   --radius-lg: 20px;
   --shadow: 0 4px 24px rgba(0,0,0,0.3);
@@ -38,20 +37,15 @@ html.nav-open { overflow: hidden; }
   --section-pad: clamp(60px, 10vw, 120px);
 }
 
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-sans);
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.7;
-  min-height: 100vh;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
 }
 
 a { color: var(--accent-blue); text-decoration: none; transition: color 0.2s; }
@@ -95,8 +89,6 @@ nav {
   background: rgba(10,10,26,0.85);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(136,68,255,0.15);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
 }
 nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
 .nav-logo {
@@ -118,9 +110,7 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(68,136,255,0.3); color: #fff !important; }
 .hamburger {
   display: none; flex-direction: column; gap: 5px;
-  cursor: pointer; background: none; border: none;
-  padding: 12px; min-width: 44px; min-height: 44px;
-  align-items: center; justify-content: center;
+  cursor: pointer; background: none; border: none; padding: 8px;
 }
 .hamburger span {
   width: 24px; height: 2px; background: var(--text-primary);
@@ -129,24 +119,42 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 
 /* HERO */
 .hero {
-  min-height: 100vh; min-height: 100dvh; display: flex; align-items: center;
+  min-height: 100vh; display: flex; align-items: center;
   background: var(--gradient-hero); position: relative; overflow: hidden; padding-top: 80px;
+  background-size: 300% 300%;
+  animation: gradient-drift 20s ease infinite;
+}
+@keyframes gradient-drift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.hero-text h1 { margin-bottom: 24px; }
-.hero-text h1 .highlight {
-  background: var(--gradient-danger);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
+.hero-text h1 { margin-bottom: 24px; color: var(--text-primary); }
 .hero-subtitle {
   font-size: clamp(1rem, 2vw, 1.25rem); color: var(--text-secondary);
   margin-bottom: 36px; max-width: 520px;
 }
 .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* Hero staggered text fade-in */
+.hero-text > * {
+  opacity: 0; transform: translateY(12px);
+  animation: gentle-enter 0.6s ease forwards;
+}
+.hero-text > :nth-child(1) { animation-delay: 0.1s; }
+.hero-text > :nth-child(2) { animation-delay: 0.3s; }
+.hero-text > :nth-child(3) { animation-delay: 0.5s; }
+.hero-text > :nth-child(4) { animation-delay: 0.7s; }
+@keyframes gentle-enter {
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 14px 28px; border-radius: 100px; font-weight: 600; font-size: 1rem;
   cursor: pointer; border: none; transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
 }
 .btn:hover { transform: translateY(-2px); }
 .btn-primary {
@@ -160,73 +168,109 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 }
 .btn-secondary:hover { background: rgba(255,255,255,0.1); }
 
-/* Hero visual */
+/* Hero visual -- Feed Swap animation */
 .hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
-.firewall-diagram { width: 100%; max-width: 440px; aspect-ratio: 1; position: relative; }
-.fw-brain {
-  position: absolute; right: 10%; top: 50%; transform: translateY(-50%);
-  width: 120px; height: 120px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(68,221,136,0.2), rgba(68,136,255,0.1));
-  border: 2px solid rgba(68,221,136,0.4);
-  display: flex; align-items: center; justify-content: center; font-size: 48px; z-index: 2;
+.feed-swap { width: 100%; max-width: 400px; position: relative; }
+.feed-swap-frame {
+  background: #1a1a2e; border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
 }
-.fw-shield {
-  position: absolute; left: 38%; top: 50%; transform: translate(-50%, -50%);
-  width: 80px; height: 100px; z-index: 3; opacity: 0; transition: opacity 0.5s;
+.feed-swap-bar {
+  background: #12122a; padding: 10px 16px; display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.fw-shield.active { opacity: 1; }
-.fw-shield svg { width: 100%; height: 100%; filter: drop-shadow(0 0 20px rgba(68,136,255,0.5)); }
-.fw-attacks { position: absolute; left: 0; top: 0; width: 50%; height: 100%; }
-.fw-attack {
-  position: absolute; font-size: 20px;
-  animation: attack-fly 3s ease-in infinite; opacity: 0;
+.feed-swap-dots { display: flex; gap: 6px; }
+.feed-swap-dots span {
+  width: 10px; height: 10px; border-radius: 50%;
 }
-@keyframes attack-fly {
-  0% { transform: translateX(-20px); opacity: 0; }
-  15% { opacity: 1; }
-  70% { opacity: 1; }
-  100% { transform: translateX(160px); opacity: 0; }
+.feed-swap-dots span:nth-child(1) { background: #ff5f57; }
+.feed-swap-dots span:nth-child(2) { background: #febc2e; }
+.feed-swap-dots span:nth-child(3) { background: #28c840; }
+.feed-swap-url {
+  flex: 1; background: rgba(255,255,255,0.06); border-radius: 6px; padding: 4px 12px;
+  font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);
 }
-.fw-attack:nth-child(1) { top: 15%; animation-delay: 0s; }
-.fw-attack:nth-child(2) { top: 35%; animation-delay: 0.8s; }
-.fw-attack:nth-child(3) { top: 55%; animation-delay: 0.3s; }
-.fw-attack:nth-child(4) { top: 75%; animation-delay: 1.2s; }
-.fw-attack:nth-child(5) { top: 45%; animation-delay: 1.8s; }
-.fw-label {
-  position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
-  font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); white-space: nowrap;
+.feed-swap-body { position: relative; min-height: 280px; }
+
+/* Layer 1: Social feed mockup */
+.feed-layer-old {
+  position: absolute; inset: 0; padding: 16px;
+  opacity: 1; transition: opacity 1.2s ease;
 }
-.particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.particle {
-  position: absolute; width: 2px; height: 2px; background: var(--accent-purple);
-  border-radius: 50%; opacity: 0.3; animation: float-up linear infinite;
+.feed-layer-old.hidden { opacity: 0; }
+.feed-placeholder {
+  display: flex; gap: 10px; align-items: flex-start; padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
-@keyframes float-up {
-  0% { transform: translateY(100%) scale(0); opacity: 0; }
-  10% { opacity: 0.3; }
-  90% { opacity: 0.3; }
-  100% { transform: translateY(-10%) scale(1); opacity: 0; }
+.feed-placeholder-avatar {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,255,255,0.06);
 }
+.feed-placeholder-lines { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.feed-placeholder-line {
+  height: 10px; border-radius: 4px; background: rgba(255,255,255,0.06);
+}
+.feed-placeholder-line.short { width: 60%; }
+.feed-placeholder-line.medium { width: 85%; }
+.feed-placeholder-line.long { width: 95%; }
+.feed-placeholder-line.tiny { width: 30%; }
+
+/* Layer 2: Briefing cards */
+.feed-layer-new {
+  position: absolute; inset: 0; padding: 16px;
+  opacity: 0; transition: opacity 1.2s ease;
+}
+.feed-layer-new.visible { opacity: 1; }
+.briefing-header {
+  font-size: 0.65rem; color: var(--accent-blue); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.briefing-header::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent-green); display: inline-block;
+}
+.briefing-card {
+  background: rgba(255,255,255,0.04); border-radius: 10px; padding: 12px 14px;
+  margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.06);
+}
+.briefing-card-source {
+  font-size: 0.65rem; font-weight: 600; color: var(--accent-green);
+  margin-bottom: 4px; font-family: var(--font-mono);
+}
+.briefing-card-title {
+  font-size: 0.8rem; color: var(--text-primary); font-weight: 500;
+  line-height: 1.4; margin-bottom: 4px;
+}
+.briefing-card-summary {
+  font-size: 0.7rem; color: var(--text-secondary); line-height: 1.5;
+}
+.briefing-done {
+  text-align: center; font-size: 0.7rem; color: var(--text-muted);
+  margin-top: 12px; opacity: 0; transition: opacity 0.8s ease 0.6s;
+}
+.feed-layer-new.visible .briefing-done { opacity: 1; }
 
 /* PROBLEM */
 #problem { background: var(--bg-secondary); }
 .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
 .attack-card {
-  background: var(--bg-card); border: 1px solid rgba(255,68,85,0.15);
+  background: var(--bg-card); border: 1px solid rgba(68,136,255,0.15);
   border-radius: var(--radius); padding: 32px 24px;
   transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
   position: relative; overflow: hidden;
 }
 .attack-card:hover {
-  transform: translateY(-4px); border-color: rgba(255,68,85,0.35);
-  box-shadow: 0 12px 40px rgba(255,68,85,0.1);
+  transform: translateY(-4px); border-color: rgba(68,136,255,0.35);
+  box-shadow: 0 12px 40px rgba(68,136,255,0.1);
 }
 .attack-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 3px; background: var(--gradient-danger);
+  height: 3px; background: var(--gradient-safe);
 }
 .attack-icon { font-size: 36px; margin-bottom: 16px; display: block; }
-.attack-card h3 { margin-bottom: 12px; color: var(--accent-red); }
+.attack-card h3 { margin-bottom: 12px; color: var(--accent-blue); }
 .attack-card p { color: var(--text-secondary); font-size: 0.95rem; }
 
 .analogy-box {
@@ -410,6 +454,23 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   color: var(--accent-green); word-break: break-all;
 }
 
+/* RECURRING TASK TOOLS */
+.recurring-tools { margin-top: 56px; }
+.recurring-tools > h3 { text-align: center; margin-bottom: 8px; color: var(--text-primary); }
+.recurring-tools > p { text-align: center; color: var(--text-secondary); max-width: 600px; margin: 0 auto 28px; font-size: 0.95rem; }
+.recurring-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.recurring-card {
+  background: var(--bg-card); border: 1px solid rgba(68,221,136,0.2);
+  border-radius: var(--radius); padding: 28px 24px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.recurring-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(68,221,136,0.08); }
+.recurring-card h4 { margin-bottom: 6px; color: var(--accent-green); font-size: 1.05rem; }
+.recurring-card .rc-provider { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; }
+.recurring-card p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 12px; }
+.recurring-card .rc-how { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+@media (max-width: 900px) { .recurring-grid { grid-template-columns: 1fr; } }
+
 /* CTA / CHECKLIST */
 #action { background: var(--bg-secondary); }
 .checklist-container { max-width: 700px; margin: 48px auto 0; }
@@ -459,10 +520,7 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 .share-btn:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
 
 /* FOOTER */
-footer {
-  padding: 40px 0; padding-bottom: calc(40px + env(safe-area-inset-bottom));
-  text-align: center; border-top: 1px solid rgba(255,255,255,0.06); overflow: hidden;
-}
+footer { padding: 40px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
 footer p { color: var(--text-muted); font-size: 0.85rem; }
 footer a { color: var(--text-secondary); }
 
@@ -476,7 +534,7 @@ footer a { color: var(--text-secondary); }
   .hero-subtitle { margin-left: auto; margin-right: auto; }
   .hero-buttons { justify-content: center; }
   .hero-visual { order: -1; }
-  .firewall-diagram { max-width: 300px; }
+  .feed-swap { max-width: 280px; }
   .problem-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .solution-flow { grid-template-columns: 1fr; gap: 12px; }
@@ -493,29 +551,13 @@ footer a { color: var(--text-secondary); }
   .nav-links.open {
     display: flex; flex-direction: column;
     position: absolute; top: 64px; left: 0; right: 0;
-    background: rgba(10,10,26,0.98); padding: 20px 24px; gap: 8px;
+    background: rgba(10,10,26,0.98); padding: 20px 24px; gap: 16px;
     border-bottom: 1px solid rgba(136,68,255,0.15);
-    backdrop-filter: blur(20px);
-  }
-  .nav-links.open a {
-    display: block; padding: 12px 0; min-height: 44px;
-    line-height: 20px; font-size: 1rem;
   }
   .stats-grid { grid-template-columns: 1fr; }
   .example-prompt { padding: 16px; flex-direction: column; gap: 8px; }
-  .os-tabs { flex-direction: column; align-items: stretch; }
-  .os-tab { justify-content: center; }
+  .os-tabs { flex-direction: column; align-items: center; }
   .hero-buttons { flex-direction: column; align-items: center; }
-  .hero { padding-top: 72px; padding-bottom: 40px; }
-  .container { padding: 0 16px; }
-  .analogy-box { padding: 24px; }
-  .dopamine-explainer { padding: 24px; }
-  .ba-panel { padding: 20px; }
-  .share-section { padding: 24px; }
-  .attack-card { padding: 24px 20px; }
-  .checklist-item { padding: 16px; gap: 12px; }
-  .tool-card { padding: 20px 16px; }
-  .btn { padding: 12px 24px; font-size: 0.95rem; }
 }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -532,11 +574,11 @@ footer a { color: var(--text-secondary); }
       TuneOut
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#problem">The Attack</a></li>
-      <li><a href="#science">The Science</a></li>
-      <li><a href="#solution">The Filter</a></li>
-      <li><a href="#tools">Block It</a></li>
-      <li><a href="#action" class="nav-cta">Tune Out Now</a></li>
+      <li><a href="#problem">The Trade-Off</a></li>
+      <li><a href="#science">The Data</a></li>
+      <li><a href="#solution">The Upgrade</a></li>
+      <li><a href="#tools">How It Works</a></li>
+      <li><a href="#action" class="nav-cta">Try TuneOut</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -546,40 +588,83 @@ footer a { color: var(--text-secondary); }
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <div class="particles" id="particles"></div>
   <div class="container">
     <div class="hero-grid">
       <div class="hero-text">
-        <span class="section-label label-danger">Cognitive Security Alert</span>
-        <h1>Your Brain Is <span class="highlight">Not A Firewall</span></h1>
+        <h1>Same Habit. Better Feed.</h1>
         <p class="hero-subtitle">
-          Every time you scroll Twitter, YouTube, or TikTok, you expose unfiltered
-          neural pathways to content optimized by supercomputers to hijack your emotions.
-          There's a better way.
+          Your feed knows you — but it doesn't work for you. TuneOut replaces the
+          infinite scroll with a 3-minute briefing from sources you actually chose.
+          Stay informed without losing your afternoon.
         </p>
         <div class="hero-buttons">
-          <a href="#solution" class="btn btn-primary">See The Solution &#x2192;</a>
-          <a href="#problem" class="btn btn-secondary">How It Works</a>
+          <a href="#tools" class="btn btn-primary">Try TuneOut — It's Free</a>
+          <a href="#solution" class="btn btn-secondary">See How It Works</a>
         </div>
       </div>
       <div class="hero-visual">
-        <div class="firewall-diagram">
-          <div class="fw-attacks">
-            <div class="fw-attack">&#x1F621;</div>
-            <div class="fw-attack">&#x1F4F0;</div>
-            <div class="fw-attack">&#x1F525;</div>
-            <div class="fw-attack">&#x1F4A2;</div>
-            <div class="fw-attack">&#x26A0;</div>
+        <div class="feed-swap">
+          <div class="feed-swap-frame">
+            <div class="feed-swap-bar">
+              <div class="feed-swap-dots"><span></span><span></span><span></span></div>
+              <div class="feed-swap-url">twitter.com/home</div>
+            </div>
+            <div class="feed-swap-body">
+              <!-- Layer 1: Social feed (fades out) -->
+              <div class="feed-layer-old" id="feedLayerOld">
+                <div class="feed-placeholder">
+                  <div class="feed-placeholder-avatar"></div>
+                  <div class="feed-placeholder-lines">
+                    <div class="feed-placeholder-line long"></div>
+                    <div class="feed-placeholder-line medium"></div>
+                    <div class="feed-placeholder-line short"></div>
+                  </div>
+                </div>
+                <div class="feed-placeholder">
+                  <div class="feed-placeholder-avatar"></div>
+                  <div class="feed-placeholder-lines">
+                    <div class="feed-placeholder-line medium"></div>
+                    <div class="feed-placeholder-line long"></div>
+                    <div class="feed-placeholder-line tiny"></div>
+                  </div>
+                </div>
+                <div class="feed-placeholder">
+                  <div class="feed-placeholder-avatar"></div>
+                  <div class="feed-placeholder-lines">
+                    <div class="feed-placeholder-line long"></div>
+                    <div class="feed-placeholder-line short"></div>
+                  </div>
+                </div>
+                <div class="feed-placeholder">
+                  <div class="feed-placeholder-avatar"></div>
+                  <div class="feed-placeholder-lines">
+                    <div class="feed-placeholder-line medium"></div>
+                    <div class="feed-placeholder-line long"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Layer 2: Briefing cards (fades in) -->
+              <div class="feed-layer-new" id="feedLayerNew">
+                <div class="briefing-header">Summarized by AI</div>
+                <div class="briefing-card">
+                  <div class="briefing-card-source">Ars Technica</div>
+                  <div class="briefing-card-title">New open-weight LLM matches frontier models on reasoning benchmarks</div>
+                  <div class="briefing-card-summary">Researchers released a 70B parameter model that scores within 2% of leading closed models on math and code tasks.</div>
+                </div>
+                <div class="briefing-card">
+                  <div class="briefing-card-source">Hacker News</div>
+                  <div class="briefing-card-title">SQLite adds built-in vector search in latest release</div>
+                  <div class="briefing-card-summary">The new extension enables approximate nearest-neighbor queries without external dependencies.</div>
+                </div>
+                <div class="briefing-card">
+                  <div class="briefing-card-source">Nature</div>
+                  <div class="briefing-card-title">Sleep study links screen time patterns to next-day cognitive performance</div>
+                  <div class="briefing-card-summary">Participants who stopped scrolling 45 min before bed showed measurable gains in working memory.</div>
+                </div>
+                <div class="briefing-done">Done — 3 min read</div>
+              </div>
+            </div>
           </div>
-          <div class="fw-shield" id="fwShield">
-            <svg viewBox="0 0 80 100" fill="none">
-              <path d="M40 5 L75 20 V55 C75 75 55 92 40 97 C25 92 5 75 5 55 V20 L40 5Z"
-                fill="rgba(68,136,255,0.15)" stroke="rgba(68,136,255,0.6)" stroke-width="2"/>
-              <text x="40" y="58" text-anchor="middle" fill="rgba(68,136,255,0.9)" font-size="28" font-weight="bold">AI</text>
-            </svg>
-          </div>
-          <div class="fw-brain">&#x1F9E0;</div>
-          <div class="fw-label" id="fwLabel">&#x26A0; No filter between algorithms and your mind</div>
         </div>
       </div>
     </div>
@@ -590,45 +675,50 @@ footer a { color: var(--text-secondary); }
 <section id="problem">
   <div class="container">
     <div class="fade-in">
-      <span class="section-label label-danger">The Attack</span>
-      <h2>Algorithmic Prompt Injection <br>On Your Brain</h2>
+      <span class="section-label label-info">The Trade-Off</span>
+      <h2>Your Feed Works Hard &mdash;<br>Just Not For You</h2>
       <p style="color: var(--text-secondary); max-width: 680px; margin-top: 12px;">
-        In cybersecurity, a "prompt injection" tricks an AI into doing something
-        it wasn't designed to do. Social media algorithms do the same thing to <em>you</em>.
+        Algorithmic feeds are brilliantly engineered. They're just optimized for engagement,
+        not for your goals. Here's what that trade-off looks like in practice.
       </p>
     </div>
 
     <div class="problem-grid fade-in">
       <div class="attack-card">
         <span class="attack-icon">&#x1F3AF;</span>
-        <h3>Attention Extraction</h3>
-        <p>Algorithms A/B test billions of users to find the exact content pattern that makes
-        <em>you</em> unable to look away. Your attention span has dropped from 2.5 minutes to 47 seconds since 2004.</p>
+        <h3>The 40-Minute Drift</h3>
+        <p>You sat down to check one thing. Forty minutes later you're reading about something
+        you never intended to care about. The feed is optimized to keep you in it &mdash;
+        not to give you what you came for.</p>
       </div>
       <div class="attack-card">
         <span class="attack-icon">&#x1F525;</span>
-        <h3>Rage Amplification</h3>
-        <p>Twitter's algorithm shows 62% angry political tweets vs. 52% in chronological order. Each additional negative word in a headline increases clicks by 2.3%. Outrage is the product.</p>
+        <h3>Engagement Over Information</h3>
+        <p>Angry content gets 62% more algorithmic reach than calm content. The feed is optimized
+        for what keeps you scrolling, not for what leaves you better informed.
+        That's not malice &mdash; it's the optimization function.</p>
       </div>
       <div class="attack-card">
         <span class="attack-icon">&#x1F50A;</span>
-        <h3>Empathy Exploitation</h3>
-        <p>The more empathetic you are, the more vulnerable. Moral-emotional language increases content spread by 20% per word. Your ability to care is weaponized against you.</p>
+        <h3>Caring Used Against You</h3>
+        <p>The more you care about an issue, the easier it is to keep you scrolling about it.
+        Moral-emotional language increases content spread 20% per word. The feed surfaces what
+        you feel strongly about &mdash; not what helps you act on it.</p>
       </div>
     </div>
 
     <div class="analogy-box fade-in">
-      <div class="analogy-icon">&#x1F4BB;</div>
+      <div class="analogy-icon">&#x1F4CB;</div>
       <div>
-        <h3>Think of it like cybersecurity</h3>
-        <p>You wouldn't browse the internet without a firewall. You wouldn't open random email
-        attachments. You wouldn't give every app root access to your computer.</p>
+        <h3>You curate everything else</h3>
+        <p>You choose who gets on your calendar. You choose who gets your phone number.
+        You choose who gets your time in meetings.</p>
         <p style="margin-top: 12px;">
-          <span class="highlight-text">Yet every day, you give algorithmically-curated feeds
-          root access to your emotional state.</span>
-          No filter. No firewall. No antivirus. Just raw, optimized content
-          injected directly into your attention. Research confirms 31% of social media use
-          is driven by self-control problems, not genuine desire.
+          <span class="highlight-text">Your information feed is the one place where someone
+          else sets the agenda.</span>
+          Research shows 31% of the time people open social apps,
+          they didn't even intend to. It's just habit. TuneOut works at that level &mdash;
+          the habit level, not the willpower level.
         </p>
       </div>
     </div>
@@ -641,7 +731,7 @@ footer a { color: var(--text-secondary); }
 <section id="science">
   <div class="container">
     <div class="fade-in">
-      <span class="section-label label-info">The Science</span>
+      <span class="section-label label-info">The Data</span>
       <h2>What The Research Shows</h2>
     </div>
 
@@ -671,10 +761,9 @@ footer a { color: var(--text-secondary); }
     <div class="dopamine-explainer fade-in">
       <h3>&#x1F504; The Variable Reward Loop</h3>
       <p style="color: var(--text-secondary);">
-        Social media uses the same mechanism as slot machines. Your brain releases dopamine
-        not from the reward itself, but from the <strong>unpredictability</strong> of the reward.
-        Each scroll is a new pull of the lever. Research shows this creates tolerance development
-        analogous to substance addiction (Sharpe &amp; Spooner, 2025).
+        Same mechanism as slot machines. Dopamine fires on <strong>unpredictability</strong>,
+        not reward. Each scroll is a pull of the lever. Your brain builds tolerance
+        the same way it does with substances (Sharpe &amp; Spooner, 2025).
       </p>
       <div class="loop-steps">
         <div class="loop-step">
@@ -713,31 +802,31 @@ footer a { color: var(--text-secondary); }
 <section id="solution">
   <div class="container">
     <div class="fade-in">
-      <span class="section-label label-success">The Alpha</span>
-      <h2>Put An AI Filter Between <br>You And The Feed</h2>
+      <span class="section-label label-success">The Upgrade</span>
+      <h2>Choose Which AI <br>Serves Your Feed</h2>
       <p style="color: var(--text-secondary); max-width: 680px; margin-top: 12px;">
-        You can't out-think a supercomputer optimizing for your attention. But you can
-        use a <em>different</em> AI &mdash; one that works for <em>you</em> &mdash; to filter the noise.
+        You already have an AI choosing what you see. TuneOut lets you swap it
+        for one that works for your goals, not an engagement metric.
       </p>
     </div>
 
     <div class="solution-flow fade-in">
       <div class="flow-card danger-card">
         <span class="flow-icon">&#x1F30A;</span>
-        <h3>Raw Algorithmic Feed</h3>
-        <p>Ragebait, outrage, clickbait, engagement traps, emotional manipulation</p>
+        <h3>Platform's AI</h3>
+        <p>Optimized for engagement time &mdash; shows you what keeps you scrolling</p>
       </div>
       <div class="flow-arrow">&#x27A1;</div>
       <div class="flow-card shield-card">
         <span class="flow-icon">&#x1F6E1;</span>
-        <h3>LLM Filter</h3>
-        <p>Grok, Perplexity, Claude, ChatGPT &mdash; ask for exactly what you need</p>
+        <h3>TuneOut</h3>
+        <p>Intercepts the feed, pulls from your RSS sources, summarizes what matters</p>
       </div>
       <div class="flow-arrow">&#x27A1;</div>
       <div class="flow-card safe-card">
         <span class="flow-icon">&#x2705;</span>
-        <h3>Clean Information</h3>
-        <p>Factual, relevant, actionable &mdash; no emotional manipulation</p>
+        <h3>Your Agenda</h3>
+        <p>Only what you asked for. Factual, relevant, actionable. Done.</p>
       </div>
     </div>
 
@@ -745,77 +834,77 @@ footer a { color: var(--text-secondary); }
       <div class="ba-panel before">
         <div class="ba-header">
           <span class="ba-icon">&#x274C;</span>
-          <h3>Without Filter: Raw Feed</h3>
+          <h3>The Algorithm's Agenda</h3>
         </div>
         <ul class="ba-feed">
           <li class="ba-item">
             <span class="emoji">&#x1F621;</span>
-            <span class="item-text">"You won't BELIEVE what [politician] just said about [your group]"</span>
+            <span class="item-text">"CEO slammed for tone-deaf response &mdash; here's why everyone is furious"</span>
           </li>
           <li class="ba-item">
             <span class="emoji">&#x1F628;</span>
-            <span class="item-text">"BREAKING: Terrifying new study reveals [scary thing] is 10x worse than thought"</span>
+            <span class="item-text">"Your industry is dying and here's proof [thread] (1/47)"</span>
           </li>
           <li class="ba-item">
             <span class="emoji">&#x1F4B0;</span>
-            <span class="item-text">"This person makes $50K/month with this ONE trick [engagement bait]"</span>
+            <span class="item-text">"I made $200K last quarter working 4 hours a week. Here's how."</span>
           </li>
           <li class="ba-item">
             <span class="emoji">&#x1F622;</span>
-            <span class="item-text">"Heartbreaking story designed to consume your emotional bandwidth for hours"</span>
+            <span class="item-text">"This 2-minute clip will destroy your faith in [institution you depend on]"</span>
           </li>
         </ul>
       </div>
       <div class="ba-panel after">
         <div class="ba-header">
           <span class="ba-icon">&#x2705;</span>
-          <h3>With Filter: LLM-Curated</h3>
+          <h3>Your Agenda</h3>
         </div>
         <ul class="ba-feed">
           <li class="ba-item">
             <span class="emoji">&#x1F4CA;</span>
-            <span class="item-text">"Three new open-source AI models released this week with benchmarks and use cases"</span>
+            <span class="item-text">"Q4 earnings for your watchlist: 3 beats, 1 miss, key takeaways in 4 bullets"</span>
           </li>
           <li class="ba-item">
             <span class="emoji">&#x1F4D6;</span>
-            <span class="item-text">"Summary of policy changes that directly affect your work, with action items"</span>
+            <span class="item-text">"Regulatory change: two new rules that affect your ops, with compliance deadlines"</span>
           </li>
           <li class="ba-item">
             <span class="emoji">&#x1F527;</span>
-            <span class="item-text">"Practical tutorial: Set up automated backups in 15 minutes"</span>
+            <span class="item-text">"Competitor entered adjacent market &mdash; what changed, your exposure, suggested response"</span>
           </li>
           <li class="ba-item">
             <span class="emoji">&#x1F31F;</span>
-            <span class="item-text">"Notable research paper on [your topic] with key findings summarized"</span>
+            <span class="item-text">"Three papers relevant to your strategy, key findings, one recommended action each"</span>
           </li>
         </ul>
       </div>
     </div>
 
     <div class="examples-area fade-in">
-      <h3>Real Prompts You Can Use Today</h3>
+      <h3>Real Prompts. Copy Them.</h3>
       <div class="example-tabs">
-        <button class="example-tab active" data-example="news">Daily News</button>
-        <button class="example-tab" data-example="tech">Tech Updates</button>
-        <button class="example-tab" data-example="learn">Learning</button>
-        <button class="example-tab" data-example="health">Health</button>
+        <button class="example-tab active" data-example="news">Morning Brief</button>
+        <button class="example-tab" data-example="tech">Industry Watch</button>
+        <button class="example-tab" data-example="learn">Deep Dive</button>
+        <button class="example-tab" data-example="health">Decision Support</button>
       </div>
       <div class="example-content">
         <div class="example-panel active" id="example-news">
           <div class="example-prompt">
             <div class="prompt-avatar user">&#x1F464;</div>
             <div class="prompt-text">
-              <span class="user-msg">Give me a neutral summary of the 3 most consequential news stories today. No opinion, just facts and why they matter to an average person.</span>
+              <span class="user-msg">Give me the 3 most consequential things that happened today. No opinion. Just: what happened, who it affects, and whether I need to do anything.</span>
             </div>
           </div>
           <div class="example-prompt">
             <div class="prompt-avatar ai">&#x1F916;</div>
             <div class="prompt-text ai-msg">
-              <strong>1. Federal Reserve holds interest rates at 4.5%</strong> &mdash; Impact: mortgage rates stay elevated, savings yields remain high. No immediate action needed.<br><br>
-              <strong>2. EU passes AI transparency regulation</strong> &mdash; Impact: tech companies must disclose training data. Affects developers and AI product roadmaps.<br><br>
-              <strong>3. Indonesia earthquake (M6.2)</strong> &mdash; 12 casualties reported, no tsunami warning. Humanitarian aid mobilizing.
+              <strong>1. Central bank held rates steady</strong> &mdash; Borrowing costs unchanged. No action unless you're refinancing this quarter.<br><br>
+              <strong>2. New trade tariff announced on [sector]</strong> &mdash; Affects import costs for manufacturers in your supply chain. Worth flagging to ops.<br><br>
+              <strong>3. Major infrastructure bill passed committee</strong> &mdash; Construction and materials sectors affected. No direct action yet, watch for final vote.
               <br><br>
-              <span class="filtered">Filtered out: 47 rage-bait political takes, 23 celebrity drama stories, 15 fear-mongering health claims</span>
+              <span class="filtered">Filtered out: 47 outrage takes, 23 celebrity stories, 15 fear-mongering health claims &mdash; none actionable</span>
             </div>
           </div>
         </div>
@@ -823,17 +912,17 @@ footer a { color: var(--text-secondary); }
           <div class="example-prompt">
             <div class="prompt-avatar user">&#x1F464;</div>
             <div class="prompt-text">
-              <span class="user-msg">What open-source AI models were released this week? Just names, sizes, benchmarks, and links. Skip the hype.</span>
+              <span class="user-msg">What happened in my industry this week that I'd regret missing? Give me names, numbers, and what it means. Skip the hype.</span>
             </div>
           </div>
           <div class="example-prompt">
             <div class="prompt-avatar ai">&#x1F916;</div>
             <div class="prompt-text ai-msg">
-              <strong>New releases this week:</strong><br><br>
-              &#x2022; <strong>Mistral-Large-3</strong> (123B) &mdash; MMLU 86.2, competitive with GPT-4o on reasoning<br>
-              &#x2022; <strong>DeepSeek-V3-0324</strong> (685B MoE) &mdash; Strong coding benchmarks, Apache 2.0<br>
-              &#x2022; <strong>Qwen2.5-Coder-32B</strong> &mdash; State-of-the-art for code generation at its size<br><br>
-              <span class="filtered">Filtered out: 200+ hot takes about "AGI next week", influencer AI course promotions</span>
+              <strong>This week, 3 things worth knowing:</strong><br><br>
+              &#x2022; <strong>Competitor X acquired a logistics startup</strong> &mdash; signals vertical integration play. Your moat narrows if you don't own fulfillment.<br>
+              &#x2022; <strong>New open-source tool cuts deployment time 40%</strong> &mdash; your eng team should evaluate. Apache 2.0 license, no vendor lock-in.<br>
+              &#x2022; <strong>Key hire moved from [Company A] to [Company B]</strong> &mdash; talent signal. B is building something in your space.<br><br>
+              <span class="filtered">Filtered out: 200+ hot takes, influencer course promotions, "this changes everything" threads</span>
             </div>
           </div>
         </div>
@@ -841,16 +930,17 @@ footer a { color: var(--text-secondary); }
           <div class="example-prompt">
             <div class="prompt-avatar user">&#x1F464;</div>
             <div class="prompt-text">
-              <span class="user-msg">I want to understand how batteries work at a college level. Give me a 5-minute explanation with the key chemistry concepts.</span>
+              <span class="user-msg">Explain the current state of nuclear fusion energy like I'm a CEO evaluating whether to invest. 5 minutes. No hype, no doom.</span>
             </div>
           </div>
           <div class="example-prompt">
             <div class="prompt-avatar ai">&#x1F916;</div>
             <div class="prompt-text ai-msg">
-              <strong>Batteries in 5 minutes:</strong><br><br>
-              A battery converts chemical energy to electrical energy through <strong>redox reactions</strong>. The anode oxidizes (loses electrons), the cathode reduces (gains electrons), and the electrolyte facilitates ion transport...<br><br>
-              [Structured, paced content with no ads, no autoplay, no rabbit holes]<br><br>
-              <span class="filtered">Filtered out: 45-min YouTube video with 3 sponsor reads, 12 clickbait "AMAZING battery breakthrough" articles</span>
+              <strong>Fusion, CEO brief:</strong><br><br>
+              <strong>Where it stands:</strong> Net energy gain demonstrated (NIF, Dec 2022). Commercial reactors: 2035 earliest, 2040 realistic. Private funding: $6B+ across 40+ startups.<br><br>
+              <strong>Investment thesis:</strong> Too early for direct plays unless you have a 10-year horizon. Adjacent bets (superconducting magnets, plasma diagnostics, tritium supply chain) are investable now.<br><br>
+              <strong>Bottom line:</strong> Real science, real progress, not ready for your portfolio yet.<br><br>
+              <span class="filtered">Filtered out: "FREE ENERGY IS HERE" threads, 45-min YouTube explainer with 3 sponsor reads</span>
             </div>
           </div>
         </div>
@@ -858,18 +948,16 @@ footer a { color: var(--text-secondary); }
           <div class="example-prompt">
             <div class="prompt-avatar user">&#x1F464;</div>
             <div class="prompt-text">
-              <span class="user-msg">What does current evidence say about intermittent fasting? Cite actual studies, not influencer claims.</span>
+              <span class="user-msg">I need to decide whether to expand into the EU market this year. Give me the top 3 arguments for, top 3 against, and the one thing most people get wrong.</span>
             </div>
           </div>
           <div class="example-prompt">
             <div class="prompt-avatar ai">&#x1F916;</div>
             <div class="prompt-text ai-msg">
-              <strong>Evidence summary (meta-analyses):</strong><br><br>
-              &#x2022; Modest weight loss (1-8% body weight) comparable to calorie restriction (Welton et al., 2020)<br>
-              &#x2022; Improved insulin sensitivity in pre-diabetic populations (Cho et al., 2019)<br>
-              &#x2022; No significant muscle preservation advantage vs. standard restriction<br>
-              &#x2022; Long-term (&gt;1 year) adherence data still limited<br><br>
-              <span class="filtered">Filtered out: "Doctors HATE this trick", miracle cure claims, supplement ads disguised as articles</span>
+              <strong>For:</strong> (1) EUR/USD favorable, (2) GDPR compliance is now table stakes &mdash; if you're already compliant, barrier to entry is lower than 2020, (3) EU enterprise buyers actively diversifying away from US-only vendors.<br><br>
+              <strong>Against:</strong> (1) VAT and tax complexity underestimated by 80% of first-time entrants, (2) Localization isn't translation &mdash; budget 3-6 months, (3) Support hours: EU expects business-hours coverage in CET, not PST.<br><br>
+              <strong>Most people get wrong:</strong> They launch in the UK first because "English." UK post-Brexit is a separate regulatory regime. Start with Ireland or Netherlands for EU access.<br><br>
+              <span class="filtered">Filtered out: "Europe is dead" hot takes, hustle-culture market entry advice, LinkedIn thought leadership</span>
             </div>
           </div>
         </div>
@@ -884,11 +972,11 @@ footer a { color: var(--text-secondary); }
 <section id="tools">
   <div class="container">
     <div class="fade-in">
-      <span class="section-label label-warning">The Tools</span>
-      <h2>Block The Feeds. <br>Keep The Internet.</h2>
+      <span class="section-label label-info">How TuneOut Works</span>
+      <h2>One Extension. <br>Two Moves.</h2>
       <p style="color: var(--text-secondary); max-width: 680px; margin-top: 12px;">
-        You don't need to quit the internet. You need to <strong>block the algorithmically-curated feeds</strong>
-        while keeping access to everything useful. Here's how, for every OS.
+        TuneOut blocks the algorithmic feeds that set your agenda
+        and replaces them with AI briefs from sources you chose. Here's how it works.
       </p>
     </div>
 
@@ -935,7 +1023,7 @@ footer a { color: var(--text-secondary); }
             <span class="tool-name">Unhook (YouTube)</span>
             <span class="tool-badge badge-free">Free</span>
           </div>
-          <div class="tool-desc">Purpose-built to remove YouTube's addictive elements. Simple toggles. Keeps search and subscriptions, removes everything else.</div>
+          <div class="tool-desc">Purpose-built to remove YouTube's engagement-maximizing elements. Simple toggles. Keeps search and subscriptions, removes everything else.</div>
           <ol class="tool-steps">
             <li>Install "Unhook - Remove YouTube Recommended" (Chrome, Firefox, Edge)</li>
             <li>Click the icon and toggle off: Homepage Feed, Shorts, Related Videos, End Screen</li>
@@ -999,7 +1087,7 @@ footer a { color: var(--text-secondary); }
             <li>Install all three from addons.mozilla.org (Firefox recommended)</li>
             <li>LeechBlock: full-site domain blocks (Twitter, TikTok)</li>
             <li>uBlock: surgical CSS removal of YouTube feeds, Shorts, recs</li>
-            <li>Unhook: simple toggles for remaining YouTube addictive elements</li>
+            <li>Unhook: simple toggles for remaining YouTube engagement elements</li>
           </ol>
         </div>
         <div class="tool-card">
@@ -1134,6 +1222,31 @@ footer a { color: var(--text-secondary); }
         </div>
       </div>
     </div>
+
+    <div class="recurring-tools fade-in">
+      <h3>Set It On Autopilot</h3>
+      <p>Don't rely on willpower to ask every morning. Set up a recurring task once, and your brief arrives on schedule. You delegate everything else &mdash; delegate this too.</p>
+      <div class="recurring-grid">
+        <div class="recurring-card">
+          <h4>Grok Tasks</h4>
+          <div class="rc-provider">grok.com &rarr; Tasks</div>
+          <p>Schedule recurring prompts that run automatically. "Every weekday at 7am, summarize the top 5 news stories relevant to [my industry]." Results delivered to your Grok inbox.</p>
+          <div class="rc-how">Free with X Premium. Set once, runs daily.</div>
+        </div>
+        <div class="recurring-card">
+          <h4>ChatGPT Pulse</h4>
+          <div class="rc-provider">chatgpt.com &rarr; Scheduled Tasks</div>
+          <p>Recurring research tasks on a schedule. "Every Monday, compile a competitive intel brief on [3 companies]." ChatGPT runs the task and pushes results to you.</p>
+          <div class="rc-how">Available on Plus/Pro. Runs on your schedule.</div>
+        </div>
+        <div class="recurring-card">
+          <h4>Claude Coworker</h4>
+          <div class="rc-provider">claude.ai &rarr; Coworker Mode</div>
+          <p>Background agent that works while you don't. "Research the regulatory landscape for [market] and summarize weekly." Claude works asynchronously and delivers when done.</p>
+          <div class="rc-how">Available on Pro/Team. Runs in background.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1143,81 +1256,101 @@ footer a { color: var(--text-secondary); }
 <section id="action">
   <div class="container">
     <div class="fade-in" style="text-align: center;">
-      <span class="section-label label-success">Take Action</span>
-      <h2>Tune Out Today</h2>
+      <span class="section-label label-success">Try It</span>
+      <h2>Get Started in 30 Seconds</h2>
       <p style="color: var(--text-secondary); max-width: 600px; margin: 12px auto 0;">
-        You don't need to do everything at once. Check off each step as you go.
-        Every box you check is bandwidth reclaimed from algorithms that don't care about you.
+        Install the extension. That's the main thing. Everything else is optional &mdash;
+        try what sounds useful, skip what doesn't.
       </p>
     </div>
 
-    <div class="checklist-container fade-in">
-      <div class="checklist-item" data-step="1">
-        <div class="check-box">&#x2713;</div>
-        <div>
-          <div class="check-text">Install LeechBlock NG or uBlock Origin</div>
-          <div class="check-detail">2 minutes. Immediate protection against feed scrolling.</div>
-        </div>
-      </div>
-      <div class="checklist-item" data-step="2">
-        <div class="check-box">&#x2713;</div>
-        <div>
-          <div class="check-text">Block twitter.com, x.com, and tiktok.com</div>
-          <div class="check-detail">Add these to your blocker or hosts file. The biggest attention drains.</div>
-        </div>
-      </div>
-      <div class="checklist-item" data-step="3">
-        <div class="check-box">&#x2713;</div>
-        <div>
-          <div class="check-text">Install Unhook for YouTube</div>
-          <div class="check-detail">Keep YouTube for search and subscriptions. Remove the addictive feed and Shorts.</div>
-        </div>
-      </div>
-      <div class="checklist-item" data-step="4">
-        <div class="check-box">&#x2713;</div>
-        <div>
-          <div class="check-text">Set up your LLM filter</div>
-          <div class="check-detail">Bookmark grok.com, perplexity.ai, or claude.ai. Use them for news instead of feeds.</div>
-        </div>
-      </div>
-      <div class="checklist-item" data-step="5">
-        <div class="check-box">&#x2713;</div>
-        <div>
-          <div class="check-text">Delete social media apps from your phone</div>
-          <div class="check-detail">Browser versions are intentionally worse. Use that friction to your advantage.</div>
-        </div>
-      </div>
-      <div class="checklist-item" data-step="6">
-        <div class="check-box">&#x2713;</div>
-        <div>
-          <div class="check-text">Turn off all non-human notifications</div>
-          <div class="check-detail">Keep texts and calls. Disable everything from apps competing for attention.</div>
-        </div>
-      </div>
-      <div class="checklist-item" data-step="7">
-        <div class="check-box">&#x2713;</div>
-        <div>
-          <div class="check-text">Share this with someone you care about</div>
-          <div class="check-detail">Cognitive security is a team sport. Help someone else escape the feed.</div>
-        </div>
-      </div>
-
-      <div class="progress-bar-container">
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-text" id="progressText">0 of 7 completed</div>
+    <div class="checklist-container fade-in" style="text-align: center; padding: 48px 24px;">
+      <div style="max-width: 480px; margin: 0 auto;">
+        <a href="#tools" class="btn btn-primary" style="font-size: 1.1rem; padding: 18px 36px; width: 100%; justify-content: center;">
+          Install TuneOut &mdash; Free, Open Source
+        </a>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 16px;">
+          Chrome &amp; Firefox. No accounts. No tracking. No data collection.
+        </p>
       </div>
     </div>
 
+    <!-- Level Up: optional extras after install -->
+    <details class="fade-in" style="margin-top: 32px; background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(68,136,255,0.15); overflow: hidden;">
+      <summary style="padding: 20px 24px; cursor: pointer; color: var(--text-secondary); font-weight: 600; font-size: 0.95rem;">
+        Want to go further? Here are 6 more things you can do.
+      </summary>
+      <div style="padding: 0 24px 24px;">
+        <div class="checklist-item" data-step="1">
+          <div class="check-box">&#x2713;</div>
+          <div>
+            <div class="check-text">Install LeechBlock NG or uBlock Origin</div>
+            <div class="check-detail">Additional feed blocking for browser. Open source.</div>
+          </div>
+        </div>
+        <div class="checklist-item" data-step="2">
+          <div class="check-box">&#x2713;</div>
+          <div>
+            <div class="check-text">Install Unhook for YouTube</div>
+            <div class="check-detail">Keep search and subscriptions. Remove the feed, Shorts, and recs.</div>
+          </div>
+        </div>
+        <div class="checklist-item" data-step="3">
+          <div class="check-box">&#x2713;</div>
+          <div>
+            <div class="check-text">Set up a recurring AI brief</div>
+            <div class="check-detail">Use Grok Tasks, ChatGPT, or Claude to schedule a daily morning briefing.</div>
+          </div>
+        </div>
+        <div class="checklist-item" data-step="4">
+          <div class="check-box">&#x2713;</div>
+          <div>
+            <div class="check-text">Remove social media apps from your phone</div>
+            <div class="check-detail">Use the mobile browser instead. A little friction goes a long way.</div>
+          </div>
+        </div>
+        <div class="checklist-item" data-step="5">
+          <div class="check-box">&#x2713;</div>
+          <div>
+            <div class="check-text">Turn off non-human notifications</div>
+            <div class="check-detail">Keep calls and texts from people. Mute everything else.</div>
+          </div>
+        </div>
+        <div class="checklist-item" data-step="6">
+          <div class="check-box">&#x2713;</div>
+          <div>
+            <div class="check-text">Share this with someone who'd find it useful</div>
+            <div class="check-detail">If you found value here, pass it along.</div>
+          </div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-text" id="progressText">0 of 6 completed</div>
+        </div>
+      </div>
+    </details>
+
     <div class="share-section fade-in">
-      <h3>Spread Cognitive Security</h3>
-      <p>The algorithm won't share this. You have to.</p>
+      <h3>Share It If It's Useful</h3>
+      <p>Know someone who'd want a better deal from their information diet? Send it their way.</p>
       <div class="share-buttons">
-        <button class="share-btn" onclick="shareTwitter()">Share on X (ironically)</button>
+        <button class="share-btn" onclick="shareTwitter()">Share on X</button>
         <button class="share-btn" onclick="shareCopy()">Copy Link</button>
         <button class="share-btn" onclick="shareEmail()">Email a Friend</button>
       </div>
+    </div>
+
+    <div class="fade-in" style="margin-top: 48px; padding: 32px; background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(68,136,255,0.15); text-align: center;">
+      <p style="color: var(--text-secondary); font-size: 0.95rem; max-width: 560px; margin: 0 auto 16px;">
+        We apply this same agent loop methodology to enterprise workflows at
+        <a href="https://difflab.ai" style="font-weight: 600;">DiffLab.AI</a>.
+        If your team has processes that could be redesigned with AI, let's talk.
+      </p>
+      <a href="https://difflab.ai/contact" class="btn btn-secondary" style="font-size: 0.9rem;">
+        Book a 15-Minute Intro Call
+      </a>
     </div>
   </div>
 </section>
@@ -1226,7 +1359,7 @@ footer a { color: var(--text-secondary); }
 <footer>
   <div class="container">
     <p style="margin-bottom: 8px;">
-      <strong>TuneOut</strong> &mdash; Cognitive security for the algorithmic age
+      <strong>TuneOut</strong> &mdash; Same habit. Better feed. Free and open source.
     </p>
     <p>
       No tracking. No cookies. No algorithmic feed. Just information.<br>
@@ -1246,28 +1379,27 @@ footer a { color: var(--text-secondary); }
   // Mobile nav
   var hamburger = document.getElementById('hamburger');
   var navLinks = document.getElementById('navLinks');
-  function closeNav() {
-    navLinks.classList.remove('open');
-    document.documentElement.classList.remove('nav-open');
-    var spans = hamburger.querySelectorAll('span');
-    spans[0].style.transform = '';
-    spans[1].style.opacity = '';
-    spans[2].style.transform = '';
-  }
   hamburger.addEventListener('click', function() {
     navLinks.classList.toggle('open');
-    document.documentElement.classList.toggle('nav-open');
     var spans = hamburger.querySelectorAll('span');
     if (navLinks.classList.contains('open')) {
       spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
       spans[1].style.opacity = '0';
       spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
     } else {
-      closeNav();
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
     }
   });
   navLinks.querySelectorAll('a').forEach(function(link) {
-    link.addEventListener('click', function() { closeNav(); });
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+      var spans = hamburger.querySelectorAll('span');
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    });
   });
 
   // Scroll animations
@@ -1278,34 +1410,15 @@ footer a { color: var(--text-secondary); }
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
 
-  // Hero shield toggle
-  var shield = document.getElementById('fwShield');
-  var fwLabel = document.getElementById('fwLabel');
-  var shieldActive = false;
-  setInterval(function() {
-    shieldActive = !shieldActive;
-    if (shieldActive) {
-      shield.classList.add('active');
-      fwLabel.innerHTML = '\u{1F6E1} AI filter active \u2014 threats neutralized';
-      fwLabel.style.color = 'var(--accent-blue)';
-    } else {
-      shield.classList.remove('active');
-      fwLabel.innerHTML = '\u26A0 No filter between algorithms and your mind';
-      fwLabel.style.color = 'var(--text-muted)';
+  // Feed swap animation: fade old feed out, fade briefing in after 2s delay
+  setTimeout(function() {
+    var oldLayer = document.getElementById('feedLayerOld');
+    var newLayer = document.getElementById('feedLayerNew');
+    if (oldLayer && newLayer) {
+      oldLayer.classList.add('hidden');
+      newLayer.classList.add('visible');
     }
-  }, 4000);
-
-  // Particles
-  var particlesEl = document.getElementById('particles');
-  for (var i = 0; i < 30; i++) {
-    var p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (8 + Math.random() * 12) + 's';
-    p.style.animationDelay = Math.random() * 10 + 's';
-    p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
-    particlesEl.appendChild(p);
-  }
+  }, 2000);
 
   // Example tabs
   document.querySelectorAll('.example-tab').forEach(function(tab) {
@@ -1329,14 +1442,14 @@ footer a { color: var(--text-secondary); }
 
   // Checklist with localStorage persistence
   var checkedItems = new Set();
-  var totalItems = 7;
+  var totalItems = 6;
 
   function updateProgress() {
     var pct = (checkedItems.size / totalItems) * 100;
     document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('progressText').textContent =
       checkedItems.size + ' of ' + totalItems + ' completed' +
-      (checkedItems.size === totalItems ? ' \u2014 You\'re tuned out!' : '');
+      (checkedItems.size === totalItems ? ' \u2014 Nice work!' : '');
     try { localStorage.setItem('tuneout-checked', JSON.stringify(Array.from(checkedItems))); } catch(e) {}
   }
 
@@ -1363,7 +1476,7 @@ footer a { color: var(--text-secondary); }
 
   // Share
   window.shareTwitter = function() {
-    var text = encodeURIComponent('Your brain is not a firewall. Stop letting algorithms inject content directly into your attention. Use an AI filter instead.');
+    var text = encodeURIComponent('You wouldn\'t let an algorithm set your meeting agenda. You already let one set your emotional agenda. Take it back.');
     var url = encodeURIComponent(window.location.href);
     window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + url, '_blank');
   };
@@ -1376,8 +1489,8 @@ footer a { color: var(--text-secondary); }
     });
   };
   window.shareEmail = function() {
-    var subject = encodeURIComponent('Your Brain Is Not A Firewall - TuneOut');
-    var body = encodeURIComponent('Hey, I found this resource about cognitive security:\n\n' + window.location.href + '\n\nKey idea: algorithms optimize for engagement (anger, outrage, fear). Use an LLM like Grok or Perplexity to filter news instead of scrolling feeds.');
+    var subject = encodeURIComponent('TuneOut - Same Habit, Better Feed');
+    var body = encodeURIComponent('Worth 5 minutes of your time:\n\n' + window.location.href + '\n\nKey idea: stop letting algorithms set your agenda. Use AI that works for you (Grok Tasks, ChatGPT Pulse, Claude) to get the information you actually need.');
     window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
   };
 
